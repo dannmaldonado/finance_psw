@@ -13,7 +13,8 @@ class Categoria(models.Model):
 class Conta(models.Model):
     banco_choices = (
         ('NU', 'Nubank'),
-        ('CE', 'Caixa econômica'),
+        ('ST', 'Santander'),
+        ('IT', 'Itaú'),
     )
 
     tipo_choices = (
