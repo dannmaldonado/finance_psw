@@ -10,7 +10,7 @@
         <div class="card">
           <div class="row">
             <div class="col-md-8">
-              <span class="fonte-destaque">RS 1.000,00</span>
+              <span class="fonte-destaque">RS {{total_entradas}}</span>
             </div>
             <div class="col-md">
               <img
@@ -27,7 +27,7 @@
         <div class="card">
           <div class="row">
             <div class="col-md-8">
-              <span class="fonte-destaque">RS 1.000,00</span>
+              <span class="fonte-destaque">RS {{total_saidas}}</span>
             </div>
             <div class="col-md">
               <img
@@ -77,14 +77,14 @@
             <div class="saldo">
               <span class="fonte-destaque">Saldo mensal</span>
               <br />
-              <span class="font-light">R$ 0.000,00</span>
+              <span class="font-light">R$ {{total_entradas}}</span>
             </div>
           </div>
           <div class="col-md">
             <div class="despesa">
               <span class="fonte-destaque">Despesa mensal</span>
               <br />
-              <span class="font-light">R$ 0.000,00</span>
+              <span class="font-light">R$ {{total_saidas}}</span>
             </div>
           </div>
         </div>
@@ -92,7 +92,9 @@
         <span class="fonte-destaque">Total livre</span>
         <span class="font-light negativo">R$ 0.000,00</span>
         <hr class="hr-borda" />
-        <a href="#" class="botao-principal">Gerenciar dados mensais</a>
+        <a href="{% url 'gerenciar' %}" class="botao-principal"
+          >Gerenciar dados mensais</a
+        >
       </div>
     </div>
   </div>
@@ -104,7 +106,9 @@
           <span class="fonte-destaque">Planejamento</span>
         </div>
         <hr class="hr-borda" />
-        <a href="#" class="botao-principal">Definir planejamento</a>
+        <a href="{% url 'definir_planejamento' %}" class="botao-principal"
+          >Definir planejamento</a
+        >
       </div>
     </div>
     <div class="col-md-8">
@@ -137,7 +141,9 @@
         </div>
 
         <hr class="hr-borda" />
-        <a href="#" class="botao-principal">Alterar categorias essenciais</a>
+        <a href="{% url 'gerenciar' %}" class="botao-principal"
+          >Alterar categorias essenciais</a
+        >
       </div>
     </div>
   </div>
@@ -149,16 +155,25 @@
       <div class="card">
         <span class="fonte-destaque">Gerenciar contas</span>
         <hr class="hr-borda" />
-
+        {% if not contas_proximas_vencimento%}
+        <p class="fonte-destaque">
+          Calma, nenhuma conta proxima do vencimento.
+        </p>
+        {% else %}{% for conta in contas_proximas_vencimento %}
         <span class="fonte-destaque">Próximas do vencimento</span>
-        <span class="fonte-light">3 contas próximas do vencimento</span>
+        <span class="fonte-light"
+          >{{contas_proximas_vencimento.id}} contas próximas do vencimento</span
+        >
+        {% endfor %}{% endif %}
         <br />
+        {% for conta in contas_vencidas %}
         <span class="fonte-destaque negativo">Vencidas</span>
-        <span class="fonte-light">0 contas vencidas</span>
+        <span class="fonte-light">{{contas_vencidas}} contas vencidas</span>
+        {% endfor %}
 
         <hr class="hr-borda" />
 
-        <a href="#" class="botao-principal">Ver mais</a>
+        <a href="{% url 'ver_contas' %}" class="botao-principal">Ver mais</a>
       </div>
     </div>
   </div>
